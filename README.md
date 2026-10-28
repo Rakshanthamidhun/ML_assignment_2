@@ -1,4 +1,4 @@
-# Income Classification — Model Comparison (ML Assignment 2)
+## Income Classification — Model Comparison (ML Assignment 2)
 
 **Student:** RAKSHANTHA M 
 **Course:** M.Tech AIML, BITS Pilani WILP  
@@ -194,11 +194,17 @@ weighting shifts the decision threshold rather than improving ranking. For Naive
 ## 6. Running Locally
 
 ```bash
+sudo dnf install -y git
+git --version
+
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+pip install ipykernel
 python -m venv .venv
-.venv\Scripts\activate          # Windows  (macOS/Linux: source .venv/bin/activate)
+source .venv/bin/activate
+
 pip install -r requirements.txt
 
-python train_models.py           # optional: retrain and re-save all 5 models (~2 min)
 streamlit run app.py
 ```
 
