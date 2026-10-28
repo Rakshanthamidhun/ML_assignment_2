@@ -2,7 +2,6 @@
 
 **Student:** RAKSHANTHA M 
 **Course:** M.Tech AIML, BITS Pilani WILP  
-**Submission date:** 27-Oct-2026
 **BITS ID:** 2026AK05368
 
 > [!NOTE]
@@ -226,3 +225,21 @@ scores the uploaded CSV.
 
 The notebook was executed on BITS Virtual Lab; the screenshot is included in the
 submission PDF.
+
+![BITS Virtual Lab VS Code](bitslab_snippets/streamlit_app_welcome.png)
+
+![ROC Curve](bitslab_snippets/ROC_Curve.png)
+
+![Github Snippet](bitslab_snippets/github_snippet.png)
+
+
+![streamlit_localhost_check](bitslab_snippets/streamlit_localhost_check.png)
+
+![Steamlit_cloud_app](bitslab_snippets/streamlit_cloud_app.png)
+
+![Classification Report](bitslab_snippets/classification_report.png)
+
+
+![Mertics Graph Comparision](bitslab_snippets/metrics_graph_comparision.png)
+
+![Evaluation Metrics](bitslab_snippets/Evaluation_metrics.png)
