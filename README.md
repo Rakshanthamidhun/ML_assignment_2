@@ -66,7 +66,7 @@ This satisfies the assignment's requirements of ≥500 instances (6,000 used),
 a binary target sourced from UCI.
 
 ## 3. GitHub Repository
-**GitHub repo link:** [https://github.com/2026ak05368/ML_assignment_2]
+**GitHub repo link:** [https://github.com/Rakshanthamidhun/ML_assignment_2]
 
 The repository contains the complete source code (`app.py`, `train_models.py`,
 `ml2_assignment.ipynb`), `requirements.txt`, this README, the test data
@@ -208,7 +208,7 @@ model from the dropdown.
 
 ## 7. Streamlit App
 
-**Live app:** [https://2026AK05368_mlassignment-2.streamlit.app/]
+**Live app:** [https://2026ak05368-mlassignment2.streamlit.app/]
 
 Deployed on Streamlit Community Cloud from this repo's `main` branch with `app.py` as
 the entry point. The app never retrains: it loads the saved pipelines from `model/` and
