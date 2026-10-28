@@ -1,0 +1,9 @@
+Model,Weighting,CV Accuracy,CV AUC,CV Precision,CV Recall,CV F1,CV MCC
+Logistic Regression,balanced,0.8117,0.9016,0.5848,0.8312,0.6865,0.5754
+Logistic Regression,none (natural ratio),0.8473,0.9015,0.7361,0.5995,0.6608,0.5686
+Decision Tree,balanced,0.8069,0.8854,0.5776,0.8253,0.6795,0.5654
+Decision Tree,none (natural ratio),0.8419,0.8724,0.7241,0.5886,0.6483,0.5534
+Naive Bayes,balanced,0.7933,0.8881,0.5561,0.8337,0.667,0.5486
+Naive Bayes,none (natural ratio),0.8285,0.8881,0.6392,0.7112,0.673,0.5589
+Support Vector Machine,balanced,0.8031,0.8996,0.5695,0.8472,0.6811,0.5691
+Support Vector Machine,none (natural ratio),0.8429,0.8838,0.7132,0.6146,0.6601,0.5614
