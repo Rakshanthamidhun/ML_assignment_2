@@ -17,8 +17,19 @@ from sklearn.metrics import (
 
 st.set_page_config(page_title="Income Classification - Model Comparison", layout="wide")
 
+APP_VERSION = "v3-about"   # shown in the sidebar so you can confirm which code is deployed
 BASE_DIR = Path(__file__).resolve().parent
-MODEL_DIR = BASE_DIR / "model"
+
+
+def _find_model_dir():
+    """Locate the model/ folder whether the app runs from the repo root or elsewhere."""
+    for cand in (BASE_DIR / "model", Path.cwd() / "model", BASE_DIR.parent / "model"):
+        if (cand / "logistic_regression.joblib").is_file():
+            return cand
+    return BASE_DIR / "model"
+
+
+MODEL_DIR = _find_model_dir()
 
 MODEL_FILES = {
     "Logistic Regression": MODEL_DIR / "logistic_regression.joblib",
@@ -36,6 +47,17 @@ TARGET_COL = "income"
 
 @st.cache_resource
 def load_model(path):
+    path = Path(path)
+    if not path.is_file():
+        st.error(
+            f"Model file not found: `{path}`\n\n"
+            f"App folder: `{BASE_DIR}`  \nWorking dir: `{Path.cwd()}`  \n"
+            f"Files in app folder: `{sorted(p.name for p in BASE_DIR.iterdir())}`  \n"
+            f"Files in model folder: `{sorted(p.name for p in MODEL_DIR.iterdir()) if MODEL_DIR.is_dir() else 'model/ folder missing'}`\n\n"
+            "Check that the `model/` folder with the .joblib files is committed and pushed "
+            "to the same repo and branch this Streamlit app is deployed from."
+        )
+        st.stop()
     return joblib.load(path)
 
 
@@ -58,16 +80,56 @@ def compute_metrics(y_true, y_pred, y_proba):
     }
 
 
+UCI_URL = "https://archive.ics.uci.edu/dataset/2/adult"
+MIRROR_URL = "https://github.com/jbrownlee/Datasets/blob/master/adult-all.csv"
+REPO_URL = "https://github.com/Rakshanthamidhun/ML_assignment_2"
+
 st.title("Income Classification — Model Comparison")
 st.caption(
-    "UCI Adult (Census Income) dataset · 5 classifiers tuned with 5-fold CV and trained offline · "
-    "upload a test CSV below to see how each model performs."
+    f"[UCI Adult (Census Income) dataset]({UCI_URL}) · 5 classifiers tuned with 5-fold CV and "
+    "trained offline · upload a test CSV in the sidebar to see how each model performs."
 )
+
+with st.expander("About this application", expanded=True):
+    st.markdown(
+        f"""
+**What it does**
+
+This app predicts whether a person's annual income is **above $50K** from census attributes
+(age, education, occupation, marital status, hours worked and so on), and compares five
+classification models on the same test data.
+
+- **Models:** Logistic Regression, Decision Tree, KNN, Naive Bayes (Gaussian) and SVM (RBF).
+  Each is a scikit-learn pipeline (scaling + one-hot encoding + classifier), tuned with
+  `GridSearchCV` using 5-fold stratified cross-validation and selected by F1.
+- **Class imbalance:** about 75% `<=50K` / 25% `>50K`. The data is not resampled; class weighting
+  is used where cross-validation showed it helps.
+- **No retraining:** the app loads the saved models from `model/` and only scores the data you upload.
+
+**How to use it**
+
+1. Upload a test CSV in the sidebar, or download the sample `test_data.csv` (1,200 held-out rows).
+2. Pick a model from the dropdown to see its Accuracy, AUC, Precision, Recall, F1 and MCC,
+   plus the confusion matrix and classification report.
+3. Scroll down to compare all five models side by side.
+
+**Dataset**
+
+- Name: UCI Adult (Census Income), 48,842 rows, binary target `income` (`>50K` = 1)
+- Source: [UCI Machine Learning Repository]({UCI_URL})
+- Downloaded from: [GitHub mirror of the original UCI file]({MIRROR_URL})
+- Used here: a stratified 6,000-row sample with 12 features, split 80/20 into train and test
+
+**Source code:** [{REPO_URL}]({REPO_URL})
+"""
+    )
 
 # ---------------------------------------------------------------------------
 # Sidebar: upload + model selection
 # ---------------------------------------------------------------------------
 st.sidebar.header("Controls")
+st.sidebar.markdown(f"**Dataset:** [UCI Adult (Census Income)]({UCI_URL})")
+st.sidebar.caption(f"App build: {APP_VERSION}")
 
 uploaded_file = st.sidebar.file_uploader(
     "Upload test CSV", type="csv",
