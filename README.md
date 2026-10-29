@@ -31,9 +31,8 @@ without retraining.
 ## 2. Dataset Description
 
 - **Name:** UCI Adult (Census Income) Dataset
-- **Source:** UCI Machine Learning Repository, (`- **Source:** UCI Machine Learning Repository, Adult (Census Income) dataset:
-  [https://archive.ics.uci.edu/dataset/2/adult](https://archive.ics.uci.edu/dataset/2/adult)`), which hosts the
-  dataset's canonical CSV form unmodified from the original UCI release.
+- **Source:** UCI Machine Learning Repository, (- **Source:** UCI Machine Learning Repository, Adult (Census Income) dataset:
+  [https://archive.ics.uci.edu/dataset/2/adult]), which hosts the dataset's canonical CSV form unmodified from the original UCI release.
 - **Original size:** 48,842 instances, 14 raw attributes + 1 target
 - **Used in this project:** a stratified subsample of 6,000 instances (to keep
   SVM training tractable and the repo lightweight for Streamlit Community
