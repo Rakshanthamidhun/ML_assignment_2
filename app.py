@@ -7,6 +7,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
+from pathlib import Path
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import (
@@ -16,12 +17,15 @@ from sklearn.metrics import (
 
 st.set_page_config(page_title="Income Classification - Model Comparison", layout="wide")
 
+BASE_DIR = Path(__file__).resolve().parent
+MODEL_DIR = BASE_DIR / "model"
+
 MODEL_FILES = {
-    "Logistic Regression": "model/logistic_regression.joblib",
-    "Decision Tree": "model/decision_tree.joblib",
-    "KNN": "model/knn.joblib",
-    "Naive Bayes": "model/naive_bayes.joblib",
-    "Support Vector Machine": "model/svm.joblib",
+    "Logistic Regression": MODEL_DIR / "logistic_regression.joblib",
+    "Decision Tree": MODEL_DIR / "decision_tree.joblib",
+    "KNN": MODEL_DIR / "knn.joblib",
+    "Naive Bayes": MODEL_DIR / "naive_bayes.joblib",
+    "Support Vector Machine": MODEL_DIR / "svm.joblib",
 }
 
 FEATURE_COLS = ['age', 'education_num', 'capital_gain', 'capital_loss', 'hours_per_week',
@@ -36,7 +40,7 @@ def load_model(path):
 
 
 @st.cache_data
-def load_best_params(path="model/best_hyperparameters.csv"):
+def load_best_params(path=MODEL_DIR / "best_hyperparameters.csv"):
     try:
         return pd.read_csv(path, index_col=0)["Best hyperparameters"].to_dict()
     except Exception:
@@ -71,7 +75,7 @@ uploaded_file = st.sidebar.file_uploader(
 )
 
 try:
-    with open("test_data.csv", "rb") as f:
+    with open(BASE_DIR / "test_data.csv", "rb") as f:
         st.sidebar.download_button("Download sample test_data.csv", f, file_name="test_data.csv",
                                    mime="text/csv", help="Held-out 1,200-row test split from training.")
 except FileNotFoundError:
