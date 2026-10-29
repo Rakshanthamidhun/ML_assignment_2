@@ -81,7 +81,6 @@ def compute_metrics(y_true, y_pred, y_proba):
 
 
 UCI_URL = "https://archive.ics.uci.edu/dataset/2/adult"
-MIRROR_URL = "https://github.com/jbrownlee/Datasets/blob/master/adult-all.csv"
 REPO_URL = "https://github.com/Rakshanthamidhun/ML_assignment_2"
 
 st.title("Income Classification — Model Comparison")
@@ -117,7 +116,6 @@ classification models on the same test data.
 
 - Name: UCI Adult (Census Income), 48,842 rows, binary target `income` (`>50K` = 1)
 - Source: [UCI Machine Learning Repository]({UCI_URL})
-- Downloaded from: [GitHub mirror of the original UCI file]({MIRROR_URL})
 - Used here: a stratified 6,000-row sample with 12 features, split 80/20 into train and test
 
 **Source code:** [{REPO_URL}]({REPO_URL})
